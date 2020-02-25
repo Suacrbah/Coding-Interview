@@ -1,31 +1,29 @@
-import java.util.*;
-
 public class ReverseLinkedList {
     public static void main(String[] args) {
-        ListNode listNode = new ListNode(0);
-        listNode.next = new ListNode(1);
-        listNode.next.next = new ListNode(2);
-        listNode.next.next.next = new ListNode(3);
-        listNode.next.next.next.next = new ListNode(4);
-        System.out.println(printListFromTailToHead(listNode));
-    }
-
-    public static ArrayList<Integer> printListFromTailToHead(ListNode listNode) {
-        Stack<Integer> stack = new Stack<Integer>();
-        while (listNode != null) {
-            stack.push(listNode.val);
-            listNode = listNode.next;
+        ListNode head = new ListNode(0);
+        ListNode iter = head;
+        for (int i = 1; i <= 10; i++) {
+            iter.next = new ListNode(i);
+            iter = iter.next;
         }
-        ArrayList<Integer> ans = new ArrayList<Integer>();
-        while (!stack.isEmpty()) ans.add(stack.pop());
-        return ans;
+        System.out.println(head);
+        System.out.println(ReverseList(head));
     }
-}
 
-class ListNode {
-    int val;
-    ListNode next = null;
-    ListNode(int val) {
-        this.val = val;
+    public static ListNode ReverseList(ListNode head) {
+        if (head == null) return null;
+        if (head.next == null) return head;
+        ListNode l = head;
+        ListNode r = head.next;
+        ListNode temp = r;
+        head.next = null;
+
+        while (true) {
+            temp = r.next;
+            r.next = l; l = r;
+            if (temp == null) break;
+            r = temp;
+        }
+        return r;
     }
 }
